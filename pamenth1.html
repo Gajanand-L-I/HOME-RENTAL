@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 50px;
+        }
+        .property-details {
+            max-width: 500px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+        .property-details h2 {
+            color: #333;
+        }
+        .property-details input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .book-now-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="property-details">
+    <h2 id="property-title">Property Title</h2>
+    <p><strong>Price:</strong> ₹<span id="property-price">0</span></p>
+    <p id="property-description">Description</p>
+    
+    <!-- Required fields for payment -->
+    <input type="text" id="user-name" placeholder="Enter your name" required>
+    <input type="email" id="user-email" placeholder="Enter your email" required>
+    <input type="text" id="user-contact" placeholder="Enter your contact number" required>
+    <input type="text" id="user-upi-id" placeholder="Enter your UPI ID" required>
+    
+    <button class="book-now-btn" onclick="proceedToPayment()">Proceed to Payment</button>
+</div>
+
+<!-- Razorpay Checkout Script -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+    // Retrieve URL parameters and display the property details
+    const urlParams = new URLSearchParams(window.location.search);
+    const title = urlParams.get('title');
+    const price = urlParams.get('price');
+    const description = urlParams.get('description');
+    
+    // Example Admin Payment Details (You can get these from the backend)
+    const adminUpiId = ""; // Assume the admin's UPI ID is stored in the backend
+    
+    // Display the values in HTML
+    document.getElementById('property-title').textContent = title;
+    document.getElementById('property-price').textContent = price;
+    document.getElementById('property-description').textContent = description;
+
+    function proceedToPayment() {
+        // Collect and validate form inputs
+        const name = document.getElementById('user-name').value;
+        const email = document.getElementById('user-email').value;
+        const contact = document.getElementById('user-contact').value;
+        const userUpiId = document.getElementById('user-upi-id').value;
+
+        // Ensure all fields are filled
+        if (!name || !email || !contact || !userUpiId) {
+            alert("Please fill out all fields before proceeding to payment.");
+            return;
+        }
+
+        // Prepare Razorpay payment options
+        const options = {
+            "key": "", // Your Razorpay key
+            "amount": price * 100, // Convert to paise
+            "currency": "INR",
+            "name": "HomeRent",
+            "description": `Booking payment for ${title}`,
+            "handler": function (response) {
+                // Success event
+                alert("Payment successful! Transaction ID: " + response.razorpay_payment_id);
+                // Here, you can trigger payment transfer to the admin via Razorpay Payouts
+                // Once payment is complete, you can send a request to your server for further processing
+                window.location.href = "confirmation.html"; // Redirect on success
+            },
+            "modal": {
+                "ondismiss": function () {
+                    // Failure or modal close event
+                    alert("Payment process was interrupted or failed. Please try again.");
+                    window.location.href = "payment-failed.html"; // Redirect on failure
+                }
+            },
+            "prefill": {
+                "name": name,
+                "email": email,
+                "contact": contact
+            },
+            "notes": {
+                "property_title": title,
+                "property_description": description,
+                "user_upi_id": userUpiId, // User's UPI ID
+                "admin_upi_id": adminUpiId  // Admin's UPI ID for payment transfer
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+    
+        const rzp = new Razorpay(options);
+        rzp.open();
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>About Us - Home Rental Website</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Reuse the existing styles from your home rental website */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.5) 50%), url('1.jpg');
+            background-position: center;
+            background-size: cover;
+            min-height: 100vh;
+            color: #fff;
+            animation: backgroundAnimation 30s infinite alternate;
+        }
+
+        @keyframes backgroundAnimation {
+            0% { background-position: center; }
+            100% { background-position: top; }
+        }
+
+        .navbar {
+            width: 100%; /* Full width */
+            background-color: #333; /* Background color */
+            padding: 10px 20px; /* Add some padding */
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Space between logo and menu */
+        }
+
+        .icon {
+            width: 200px;
+            height: 70px;
+        }
+
+        .logo {
+            color: #ff7200;
+            font-size: 35px;
+            font-family: Arial;
+            padding-left: 20px;
+            margin-top: 5px;
+        }
+
+        .menu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1; /* Allow the menu to grow */
+        }
+
+        ul {
+            display: flex; /* Make the list a flex container */
+            justify-content: center;
+            align-items: center;
+        }
+
+        ul li {
+            list-style: none;
+            margin: 0 30px; /* Increased spacing between items */
+            font-size: 14px;
+        }
+
+        ul li a {
+            text-decoration: none;
+            color: #fff;
+            font-family: Arial;
+            font-weight: bold;
+            transition: 0.4s ease-in-out;
+        }
+
+        ul li a:hover {
+            color: #ff7200;
+        }
+
+        .content {
+            width: 1200px;
+            margin: auto;
+            text-align: center;
+            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            margin-top: 20px; /* Added margin for spacing */
+        }
+
+        .content h1 {
+            font-family: 'Times New Roman';
+            font-size: 50px;
+            letter-spacing: 2px;
+            opacity: 0.8;
+            text-shadow: 
+                0 0 5px #000,
+                0 0 10px #000,
+                0 0 15px #000,
+                0 0 20px #000,
+                0 0 25px #ff7200;
+        }
+
+        .content p {
+            font-size: 18px;
+            margin-top: 20px;
+            color: #ddd; /* Lighter text color for better readability */
+        }
+
+        /* You can add additional styles for images or sections here */
+        .team {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Space between team members */
+            margin-top: 40px;
+        }
+
+        .team-member {
+            background: rgba(248, 248, 248, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            width: 200px; /* Fixed width for team members */
+            transition: transform 0.3s;
+        }
+
+        .team-member:hover {
+            transform: scale(1.05);
+        }
+
+        .team-member img {
+            width: 100%; /* Make the image take the full width */
+            height: 150px; /* Set a fixed height for uniformity */
+            object-fit: cover; /* Ensure the image covers the area without distortion */
+            border-radius: 5px; /* Round the corners of the image */
+        }
+
+        .team-member h3 {
+            color: #ff7200;
+            margin: 10px 0;
+        }
+
+        .team-member p {
+            color: #333;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="icon">
+            <h2 class="logo">HomeRent</h2>
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="userhomeview.html">HOME</a></li>
+                <li><a href="#">ABOUT</a></li>
+                <li><a href="perproties.html">PROPERTIES</a></li>
+                <li><a href="Services.html">SERVICES</a></li>
+                <li><a href="contact.html">CONTACT</a></li>
+                <!--<li><a href="#">Passion</a></li>-->
+            </ul>
+        </div>
+    </div>
+
+    <div class="content">
+        <h1>About Us</h1>
+        <p>Welcome to HomeRent! We are dedicated to helping you find the perfect rental property that fits your needs and budget.</p>
+        <p>Our mission is to provide a seamless and enjoyable rental experience for all our clients.</p>
+        
+        <div class="team">
+            <div class="team-member">
+              <!--    <img src="https://via.placeholder.com/200" alt="Team Member 1">-->
+                <h3>VIKRANT</h3>
+                <p>Founder & CEO</p>
+            </div>
+            <div class="team-member">
+              <!--  <img src="https://via.placeholder.com/200" alt="Team Member 2">-->
+                <h3>Pratik</h3>
+                <p>Marketing Director</p>
+            </div>
+            <div class="team-member">
+               <!-- <img src="https://via.placeholder.com/200" alt="Team Member 3">-->
+                <h3>Gajanand</h3>
+                <p>Property Manager</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

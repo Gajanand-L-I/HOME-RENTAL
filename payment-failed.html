@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Failed</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .error-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 90%;
+        }
+        .error-container h1 {
+            color: #ff4d4d;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .error-container p {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .error-container a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .error-container a:hover {
+            text-decoration: underline;
+        }
+        .retry-btn {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .retry-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="error-container">
+    <h1>Payment Failed</h1>
+    <p>Unfortunately, your payment could not be completed. Please try again or check your payment details.</p>
+    <a href="payment.html" class="retry-btn">Retry Payment</a> <!-- Adjust to correct payment page -->
+    <p><a href="contact.html">Contact Support</a> if the issue persists.</p>
+</div>
+
+</body>
+</html>

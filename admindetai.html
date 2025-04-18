@@ -1,0 +1,173 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.5) 50%), url('1.jpg');
+            background-position: center;
+            background-size: cover;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            color: #fff;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between; 
+            padding: 15px;
+            background: none; 
+        }
+
+        .logo {
+            font-size: 30px;
+            font-weight: bold;
+            color: #ff7200;
+        }
+
+        .menu {
+            display: flex;
+            justify-content: center; 
+        }
+
+        .menu ul {
+            display: flex;
+            list-style: none;
+            padding: 0; 
+        }
+
+        .menu ul li {
+            padding: 0 20px;
+        }
+
+        .menu ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .menu ul li a:hover {
+            color: #ff7200;
+        }
+
+        .content {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+
+        input[type="text"], input[type="number"], textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ff7200;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
+        }
+
+        input[type="file"] {
+            margin: 10px 0;
+        }
+
+        button {
+            background-color: #ff7200;
+            border: none;
+            padding: 10px 20px;
+            color: white;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: white;
+            color: #ff7200;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <h2 class="logo">HomeRent</h2>
+        <div class="menu">
+            <ul>
+                <li><a href="adminhome.html">HOME</a></li>
+                <li><a href="About.html">ABOUT</a></li>
+                <li><a href="view.html">PROPERTIES</a></li>
+                <li><a href="#">SERVICES</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="content">
+        <h1>Add New Property</h1>
+        <input type="text" id="property-title" placeholder="Property Title" required>
+        <input type="text" id="property-details" placeholder="Property Details" required>
+        <input type="text" id="property-price" placeholder="Property Price (e.g., $1200)" required>
+        <textarea id="property-description" placeholder="Property Description" rows="4" required></textarea>
+        <input type="file" id="property-images" accept="image/*" multiple required>
+        <button onclick="addProperty()">Add Property</button>
+    </div>
+
+    <script>
+        function addProperty() {
+            const title = document.getElementById('property-title').value;
+            const details = document.getElementById('property-details').value;
+            const price = document.getElementById('property-price').value;
+            const description = document.getElementById('property-description').value;
+            const imageFiles = document.getElementById('property-images').files;
+
+            if (title && details && price && description && imageFiles.length > 0) {
+                const readerPromises = Array.from(imageFiles).map(file => {
+                    return new Promise((resolve) => {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            resolve(e.target.result); // Resolve with the image data URL
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                });
+
+                Promise.all(readerPromises).then((imageUrls) => {
+                    const properties = JSON.parse(localStorage.getItem('properties')) || [];
+                    const newProperty = {
+                        title: title,
+                        details: details,
+                        price: price,
+                        description: description,
+                        images: imageUrls
+                    };
+
+                    properties.push(newProperty);
+                    localStorage.setItem('properties', JSON.stringify(properties));
+                    
+                    alert("Property added successfully!");
+                    // Clear the input fields
+                    document.getElementById('property-title').value = '';
+                    document.getElementById('property-details').value = '';
+                    document.getElementById('property-price').value = '';
+                    document.getElementById('property-description').value = '';
+                    document.getElementById('property-images').value = '';
+                });
+            } else {
+                alert("Please fill in all fields.");
+            }
+        }
+    </script>
+
+</body>
+</html>

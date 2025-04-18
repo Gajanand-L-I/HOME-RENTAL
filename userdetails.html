@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Properties</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.5) 50%), url('1.jpg');
+            background-position: center;
+            background-size: cover;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            color: #fff;
+        }
+
+        .navbar {
+            width: 100%; /* Full width */
+            background-color: #333; /* Background color */
+            padding: 10px 20px; /* Add some padding */
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Space between logo and menu */
+        }
+
+        .icon {
+            width: 200px;
+            height: 70px;
+        }
+
+        .logo {
+            color: #ff7200;
+            font-size: 35px;
+            font-family: Arial;
+            padding-left: 20px;
+            margin-top: 5px;
+        }
+
+        .menu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1; /* Allow the menu to grow */
+        }
+
+        ul {
+            display: flex; /* Make the list a flex container */
+            justify-content: center;
+            align-items: center;
+        }
+
+        ul li {
+            list-style: none;
+            margin: 0 30px; /* Increased spacing between items */
+            font-size: 14px;
+        }
+
+        ul li a {
+            text-decoration: none;
+            color: #fff;
+            font-family: Arial;
+            font-weight: bold;
+            transition: 0.4s ease-in-out;
+        }
+
+        ul li a:hover {
+            color: #ff7200;
+        }
+
+        .search {
+            width: 330px;
+            display: flex;
+            align-items: center;
+        }
+
+        .srch {
+            font-family: 'Times New Roman';
+            width: 200px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid #ff7200;
+            margin-top: 0; /* Remove margin */
+            color: #333;
+            border-radius: 5px 0 0 5px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .btn {
+            width: 100px;
+            height: 40px;
+            background: #ff7200;
+            border: 2px solid #ff7200;
+            margin-top: 0; /* Remove margin */
+            color: #fff;
+            font-size: 15px;
+            border-radius: 0 5px 5px 0;
+            transition: 0.2s ease;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #e56d00;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+
+        .property {
+            border: 1px solid #ff7200;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .property h2 {
+            color: #ff7200;
+        }
+
+        .image-preview {
+            position: relative;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+
+        .navigation-button {
+            background-color: #ff7200;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .navigation-button:hover {
+            background-color: #e56d00;
+        }
+
+        .book-button {
+            background-color: #28a745;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .book-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <h2 class="logo">HomeRent</h2>
+        <div class="menu">
+            <ul>
+                <li><a href="userhomeview.html">HOME</a></li>
+                <li><a href="#">ABOUT</a></li>
+                <li><a href="perproties.html">PROPERTIES</a></li>
+                <li><a href="Services.html">SERVICES</a></li>
+            </ul>
+        </div>
+        <div class="search">
+            <input class="srch" type="search" id="searchInput" placeholder="Search for homes" onkeyup="filterProperties()">
+            <button class="btn">Search</button>
+        </div>
+    </div>
+
+    <div class="content" id="properties-container">
+        <h1>Properties</h1>
+        <!-- Property details will be appended here -->
+    </div>
+
+    <script>
+        function displayProperties() {
+            const propertiesContainer = document.getElementById('properties-container');
+            const properties = JSON.parse(localStorage.getItem('properties')) || [];
+
+            if (properties.length === 0) {
+                propertiesContainer.innerHTML += '<p>No properties added yet.</p>';
+                return;
+            }
+
+            properties.forEach((property, index) => {
+                const propertyDiv = document.createElement('div');
+                propertyDiv.className = 'property';
+                propertyDiv.id = `property-${index}`; // Set ID for filtering
+                
+                propertyDiv.innerHTML = `
+                    <h2>${property.title}</h2>
+                    <p><strong>Details:</strong> ${property.details}</p>
+                    <p><strong>Price:</strong> ${property.price}</p>
+                    <p><strong>Description:</strong> ${property.description}</p>
+                    <div class="image-preview" id="image-preview-${index}">
+                        <img src="${property.images[0]}" alt="${property.title}">
+                        <div>
+                            <button class="navigation-button" onclick="showPrevious(${index})">Previous</button>
+                            <button class="navigation-button" onclick="showNext(${index})">Next</button>
+                        </div>
+                    </div>
+                    <button class="book-button" onclick="bookProperty(${index})">Book</button>
+                `;
+                
+                propertiesContainer.appendChild(propertyDiv);
+                propertyDiv.querySelector('.image-preview').dataset.currentIndex = 0; // Initialize the current index
+                propertyDiv.querySelector('.image-preview').dataset.images = JSON.stringify(property.images); // Store images in dataset
+            });
+        }
+
+        function filterProperties() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const properties = JSON.parse(localStorage.getItem('properties')) || [];
+        
+            properties.forEach((property, index) => {
+                const propertyDiv = document.getElementById(`property-${index}`);
+                if (property.title.toLowerCase().includes(searchInput) || property.description.toLowerCase().includes(searchInput)) {
+                    propertyDiv.style.display = 'block'; // Show property if title or description matches
+                } else {
+                    propertyDiv.style.display = 'none'; // Hide property
+                }
+            });
+        }
+        
+
+        function showPrevious(index) {
+            const propertyDiv = document.getElementById(`image-preview-${index}`);
+            const images = JSON.parse(propertyDiv.dataset.images);
+            let currentIndex = parseInt(propertyDiv.dataset.currentIndex);
+            currentIndex = (currentIndex - 1 + images.length) % images.length; // Loop back to last image
+            propertyDiv.querySelector('img').src = images[currentIndex];
+            propertyDiv.dataset.currentIndex = currentIndex; // Update current index
+        }
+
+        function showNext(index) {
+            const propertyDiv = document.getElementById(`image-preview-${index}`);
+            const images = JSON.parse(propertyDiv.dataset.images);
+            let currentIndex = parseInt(propertyDiv.dataset.currentIndex);
+            currentIndex = (currentIndex + 1) % images.length; // Loop back to first image
+            propertyDiv.querySelector('img').src = images[currentIndex];
+            propertyDiv.dataset.currentIndex = currentIndex; // Update current index
+        }
+
+        function bookProperty(index) {
+            const properties = JSON.parse(localStorage.getItem('properties'));
+            const property = properties[index];
+            const url = `pamenth1.html?title=${encodeURIComponent(property.title)}&price=${encodeURIComponent(property.price)}&description=${encodeURIComponent(property.description)}`;
+            window.location.href = url;
+        }
+        
+
+        // Call the function to display properties when the page loads
+        window.onload = displayProperties;
+    </script>
+
+</body>
+</html>

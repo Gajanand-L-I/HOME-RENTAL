@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Home Rental Website</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.5) 50%), url('1.jpg');
+            background-position: center;
+            background-size: cover;
+            min-height: 100vh;
+            color: #fff;
+            animation: backgroundAnimation 30s infinite alternate;
+        }
+
+        @keyframes backgroundAnimation {
+            0% { background-position: center; }
+            100% { background-position: top; }
+        }
+
+        .navbar {
+            width: 1200px;
+            height: 75px;
+            margin: auto;
+            position: relative;
+        }
+
+        .icon {
+            width: 200px;
+            float: left;
+            height: 70px;
+        }
+
+        .logo {
+            color: #ff7200;
+            font-size: 35px;
+            font-family: Arial;
+            padding-left: 20px;
+            float: left;
+            padding-top: 10px;
+            margin-top: 5px;
+        }
+
+        .menu {
+            width: 400px;
+            float: left;
+            height: 70px;
+        }
+
+        ul {
+            float: left;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        ul li {
+            list-style: none;
+            margin-left: 62px;
+            margin-top: 27px;
+            font-size: 14px;
+        }
+
+        ul li a {
+            text-decoration: none;
+            color: #fff;
+            font-family: Arial;
+            font-weight: bold;
+            transition: 0.4s ease-in-out;
+        }
+
+        ul li a:hover {
+            color: #ff7200;
+        }
+
+        .search {
+            width: 330px;
+            float: right;
+        }
+
+        .srch {
+            font-family: 'Times New Roman';
+            width: 200px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid #ff7200;
+            margin-top: 13px;
+            color: #333;
+            border-radius: 5px 0 0 5px;
+            padding: 10px;
+            font-size: 16px;
+            float: left;
+        }
+
+        .btn {
+            width: 100px;
+            height: 40px;
+            background: #ff7200;
+            border: 2px solid #ff7200;
+            margin-top: 13px;
+            color: #fff;
+            font-size: 15px;
+            border-radius: 0 5px 5px 0;
+            transition: 0.2s ease;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            color: #000;
+        }
+
+        .content {
+            width: 1200px;
+            margin: auto;
+            text-align: center;
+            padding-top: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 40px;
+        }
+
+        .content h1 {
+            font-family: 'Times New Roman';
+            font-size: 50px;
+            letter-spacing: 2px;
+            animation: fadeIn 2s ease-in-out infinite alternate;
+            opacity: 0.8;
+            text-shadow: 
+                0 0 5px #000,
+                0 0 10px #000,
+                0 0 15px #000,
+                0 0 20px #000,
+                0 0 25px #ff7200;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .properties {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Create 3 equal columns */
+            gap: 20px; /* Space between cards */
+            margin-top: 40px;
+        }
+
+        .property {
+            background: rgba(248, 248, 248, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: left;
+            transition: transform 0.3s;
+        }
+
+        .property:hover {
+            transform: scale(1.05);
+        }
+
+        .property img {
+            width: 100%; /* Make the image take the full width of the card */
+            height: 200px; /* Set a fixed height for uniformity */
+            object-fit: cover; /* Ensure the image covers the area without distortion */
+            border-radius: 5px; /* Round the corners of the image */
+        }
+
+        .property h3 {
+            color: #ff7200;
+            margin: 10px 0;
+        }
+
+        .property p {
+            color: #333;
+            margin: 10px 0;
+        }
+
+        .property .btn-details {
+            background: #ff7200;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            display: block;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+
+        .property .btn-details:hover {
+            background: #fff;
+            color: #ff7200;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="icon">
+            <h2 class="logo">HomeRent</h2>
+        </div>
+
+        <div class="menu">
+            <ul>
+                <li><a href="#">HOME</a></li>
+                <li><a href="#">ABOUT</a></li>
+                <li><a href="#">PROPERTIES</a></li>
+                <li><a href="#">SERVICES</a></li>
+                <li><a href="#">CONTACT</a></li>
+            </ul>
+        </div>
+
+        <div class="search">
+            <input class="srch" type="search" id="searchInput" placeholder="Search for homes" onkeyup="filterProperties()">
+            <button class="btn">Search</button>
+        </div>
+    </div>
+
+    <div class="content">
+        <h1>Find Your Dream Home With Us</h1>
+        <p>Explore a wide range of rental properties suited for every budget.</p>
+
+        <div class="properties" id="properties">
+            <!-- Existing properties rendered here -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const propertiesContainer = document.getElementById('properties');
+            
+            // Predefined properties (could come from a database)
+            let properties = [
+                {
+                    name: "Cozy Apartment",
+                    beds: "2",
+                    baths: "1",
+                    price: "1200",
+                    img: "https://preview.redd.it/vyff2tx2f8991.jpg?width=1080&crop=smart&auto=webp&s=c8874b31184e2b2d4e3736f912b609c0ab79f6e4",
+                    desc: "2 beds, 1 bath, located in the city center."
+                },
+                {
+                    name: "Cozy Apartment",
+                    beds: "2",
+                    baths: "1",
+                    price: "1200",
+                    img: "https://preview.redd.it/vyff2tx2f8991.jpg?width=1080&crop=smart&auto=webp&s=c8874b31184e2b2d4e3736f912b609c0ab79f6e4",
+                    desc: "2 beds, 1 bath, located in the city center."
+                },
+                {
+                    name: "Cozy Apartment",
+                    beds: "2",
+                    baths: "1",
+                    price: "1200",
+                    img: "https://preview.redd.it/vyff2tx2f8991.jpg?width=1080&crop=smart&auto=webp&s=c8874b31184e2b2d4e3736f912b609c0ab79f6e4",
+                    desc: "2 beds, 1 bath, located in the city center."
+                },
+                
+                // Add more predefined properties here...
+            ];
+
+            // Fetch new homes from localStorage
+            const savedHomes = JSON.parse(localStorage.getItem('homes')) || [];
+            properties = [...properties, ...savedHomes];
+
+            // Render all properties
+            properties.forEach(property => {
+                const propertyHTML = `
+                    <div class="property">
+                        <img src="${property.img}" alt="${property.name}">
+                        <h3>${property.name}</h3>
+                        <p>${property.beds} beds, ${property.baths} baths</p>
+                        <p>Price: $${property.price}/month</p>
+                        <a href="details.html" class="btn-details">View Details</a>
+                    </div>
+                `;
+                propertiesContainer.innerHTML += propertyHTML;
+            });
+        });
+
+        function filterProperties() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const properties = document.querySelectorAll('.property');
+
+            properties.forEach(property => {
+                const propertyName = property.getAttribute('data-name').toLowerCase();
+                const propertyBeds = property.getAttribute('data-beds').toLowerCase();
+                const propertyBaths = property.getAttribute('data-baths').toLowerCase();
+                const propertyPrice = property.getAttribute('data-price').toLowerCase();
+
+                const isNumericSearch = !isNaN(searchInput);
+                const isVisible = isNumericSearch
+                    ? propertyPrice.includes(searchInput)
+                    : propertyName.includes(searchInput) || propertyBeds.includes(searchInput) || propertyBaths.includes(searchInput);
+
+                property.style.display = isVisible ? 'block' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>

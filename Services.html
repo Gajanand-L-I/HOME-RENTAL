@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Services - Home Rental Website</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Reuse the existing styles from your home rental website */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.5) 50%), url('1.jpg');
+            background-position: center;
+            background-size: cover;
+            min-height: 100vh;
+            color: #fff;
+            animation: backgroundAnimation 30s infinite alternate;
+        }
+
+        @keyframes backgroundAnimation {
+            0% { background-position: center; }
+            100% { background-position: top; }
+        }
+
+        .navbar {
+            width: 100%; /* Full width */
+            background-color: #333; /* Background color */
+            padding: 10px 20px; /* Add some padding */
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Space between logo and menu */
+        }
+
+        .icon {
+            width: 200px;
+            height: 70px;
+        }
+
+        .logo {
+            color: #ff7200;
+            font-size: 35px;
+            font-family: Arial;
+            padding-left: 20px;
+            margin-top: 5px;
+        }
+
+        .menu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1; /* Allow the menu to grow */
+        }
+
+        ul {
+            display: flex; /* Make the list a flex container */
+            justify-content: center;
+            align-items: center;
+        }
+
+        ul li {
+            list-style: none;
+            margin: 0 30px; /* Increased spacing between items */
+            font-size: 14px;
+        }
+
+        ul li a {
+            text-decoration: none;
+            color: #fff;
+            font-family: Arial;
+            font-weight: bold;
+            transition: 0.4s ease-in-out;
+        }
+
+        ul li a:hover {
+            color: #ff7200;
+        }
+
+
+        .content {
+            width: 1200px;
+            margin: auto;
+            text-align: center;
+            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            margin-top: 20px; /* Added margin for spacing */
+        }
+
+        .content h1 {
+            font-family: 'Times New Roman';
+            font-size: 50px;
+            letter-spacing: 2px;
+            opacity: 0.8;
+            text-shadow: 
+                0 0 5px #000,
+                0 0 10px #000,
+                0 0 15px #000,
+                0 0 20px #000,
+                0 0 25px #ff7200;
+        }
+
+        .content p {
+            font-size: 18px;
+            margin-top: 20px;
+            color: #ddd; /* Lighter text color for better readability */
+        }
+
+        .service {
+            display: flex;
+            justify-content: space-between; /* Distribute space between items */
+            margin-top: 40px;
+        }
+
+        .service-item {
+            background: rgba(248, 248, 248, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            width: 400px; /* Fixed width for services */
+            transition: transform 0.3s;
+        }
+
+        .service-item:hover {
+            transform: scale(1.05);
+        }
+
+        .service-item img {
+            width: 100%; /* Make the image take the full width */
+            height: 300px; /* Set a fixed height for uniformity */
+            object-fit: cover; /* Ensure the image covers the area without distortion */
+            border-radius: 5px; /* Round the corners of the image */
+        }
+
+        .service-item h3 {
+            color: #ff7200;
+            margin: 10px 0;
+        }
+
+        .service-item p {
+            color: #333;
+            margin: 10px 0;
+        }
+
+        .service-info {
+            margin-top: 20px;
+            color: #ddd;
+            font-size: 16px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="icon">
+            <h2 class="logo">HomeRent</h2>
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="userhomeview.html">HOME</a></li>
+                <li><a href="About.html">ABOUT</a></li>
+                <li><a href="perproties.html">PROPERTIES</a></li>
+                <li><a href="#">SERVICES</a></li>
+                <li><a href="contact.html">CONTACT</a></li>
+                <!--<li><a href="Passion.html">Passion</a></li>-->
+            </ul>
+        </div>
+    </div>
+
+    <div class="content">
+        <h1>Our Services</h1>
+        <p>At HomeRent, we provide a variety of services to cater to your needs. Explore our offerings below:</p>
+        
+        <div class="service">
+            <div class="service-item" style="margin-right: 20px;"> <!-- Adjust margin here -->
+                <img src="https://via.placeholder.com/400" alt="Dairy Services">
+                <h3>Dairy Services</h3>
+                <div class="service-info">
+                    <p>We offer a range of fresh and quality dairy products sourced from local farms.</p>
+                    <p>Our commitment is to provide you with the best dairy experience.</p>
+                </div>
+            </div>
+            <div class="service-item" style="margin-left: 20px;"> <!-- Adjust margin here -->
+                <img src="https://via.placeholder.com/400" alt="RX Bike Selling">
+                <h3>RX Bike Selling</h3>
+                <div class="service-info">
+                    <p>Explore our collection of high-performance RX bikes for all your riding needs.</p>
+                    <p>Quality and performance you can trust.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

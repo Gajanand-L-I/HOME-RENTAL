@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Rental Website</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+    
+        body {
+            font-family: 'Noto Sans Kannada', sans-serif; /* Use Kannada-friendly font */
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.5) 50%), url('1.jpg');
+            background-position: center;
+            background-size: cover;
+            min-height: 100vh;
+            color: #fff;
+            animation: backgroundAnimation 30s infinite alternate;
+        }
+    
+        @keyframes backgroundAnimation {
+            0% { background-position: center; }
+            100% { background-position: top; }
+        }
+    
+        .navbar {
+            width: 1200px;
+            height: 75px;
+            margin: auto;
+            position: relative;
+        }
+    
+        .icon {
+            width: 200px;
+            float: left;
+            height: 70px;
+        }
+    
+        .logo {
+            color: #ff7200;
+            font-size: 35px;
+            font-family: Arial;
+            padding-left: 20px;
+            float: left;
+            padding-top: 10px;
+            margin-top: 5px;
+        }
+    
+        .menu {
+            width: 400px;
+            float: left;
+            height: 70px;
+        }
+    
+        ul {
+            float: left;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        ul li {
+            list-style: none;
+            margin-left: 62px;
+            margin-top: 27px;
+            font-size: 14px;
+        }
+    
+        ul li a {
+            text-decoration: none;
+            color: #fff;
+            font-family: Arial;
+            font-weight: bold;
+            transition: 0.4s ease-in-out;
+        }
+    
+        ul li a:hover {
+            color: #ff7200;
+        }
+    
+        .content {
+            width: 1200px;
+            margin: auto;
+            text-align: center;
+            padding-top: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 40px;
+        }
+    
+        .content h1 {
+            font-family: 'Times New Roman';
+            font-size: 50px;
+            letter-spacing: 2px;
+            animation: fadeIn 2s ease-in-out infinite alternate;
+            opacity: 0.8;
+            text-shadow: 
+                0 0 5px #000,
+                0 0 10px #000,
+                0 0 15px #000,
+                0 0 20px #000,
+                0 0 25px #ff7200;
+        }
+    
+        @keyframes fadeIn {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+    
+        .properties {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Create 3 equal columns */
+            gap: 20px; /* Space between cards */
+            margin-top: 40px;
+        }
+    
+        .property {
+            background: rgba(248, 248, 248, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: left;
+            transition: transform 0.3s;
+            position: relative; /* Position for absolute positioning of delete button */
+        }
+    
+        .property:hover {
+            transform: scale(1.05);
+        }
+    
+        .property img {
+            width: 100%; /* Make the image take the full width of the card */
+            height: 200px; /* Set a fixed height for uniformity */
+            object-fit: cover; /* Ensure the image covers the area without distortion */
+            border-radius: 5px; /* Round the corners of the image */
+        }
+    
+        .property h3 {
+            color: #ff7200;
+            margin: 10px 0;
+        }
+    
+        .property p {
+            color: #333;
+            margin: 10px 0;
+        }
+    
+        .property .btn-details {
+            background: #ff7200;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            display: block;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+    
+        .property .btn-details:hover {
+            background: #fff;
+            color: #ff7200;
+        }
+    
+        .delete-btn {
+            position: absolute; /* Position the delete button */
+            top: 10px; /* Adjust top position */
+            right: 10px; /* Adjust right position */
+            background: transparent; /* Transparent background */
+            border: none; /* No border */
+            color: #ff7200; /* Delete button color */
+            font-size: 20px; /* Font size for ellipsis */
+            cursor: pointer; /* Pointer cursor */
+        }
+    
+        .translate-btn {
+            background: #ff7200;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+    
+        .translate-btn:hover {
+            background: #fff;
+            color: #ff7200;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="icon">
+            <h2 class="logo">HomeRent</h2>
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="#">HOME</a></li>
+                <li><a href="About.html">ABOUT</a></li>
+                <li><a href="properties.html">PROPERTIES</a></li>
+                <li><a href="Services.html">SERVICES</a></li>
+                <li><a href="#">CONTACT</a></li>
+                <li><a href="admin.html">ADD_HOME</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="content">
+        <h1 id="mainTitle">Find Your Dream Home With Us</h1>
+        <p id="mainDescription">Explore a wide range of rental properties suited for every budget.</p>
+        <button id="translateBtn" class="translate-btn" onclick="toggleLanguage()">Translate</button>
+
+        <div class="properties" id="properties">
+            <!-- Home properties will be inserted here -->
+        </div>
+    </div>
+
+    <script>
+        // Function to display properties
+        function displayProperties() {
+            const propertiesContainer = document.getElementById('properties');
+            propertiesContainer.innerHTML = ''; // Clear existing properties
+
+            fetch('fetchHomes.php')  // Fetch homes from the backend
+                .then(response => response.text())
+                .then(html => {
+                    propertiesContainer.innerHTML = html;
+                })
+                .catch(error => console.error('Error fetching homes:', error));
+        }
+
+        // Function to toggle between languages
+        function toggleLanguage() {
+            const title = document.getElementById('mainTitle');
+            const description = document.getElementById('mainDescription');
+
+            if (title.innerText === 'Find Your Dream Home With Us') {
+                title.innerText = 'ನಮ್ಮೊಂದಿಗೆ ನಿಮ್ಮ ಕನಸು ಮನೆಯತ್ತ';
+                description.innerText = 'ಪ್ರತಿಭಾವಂತರಿಗೆ ಹೊಂದಿಕೊಳ್ಳುವ ಬಾಡಿಗೆ ಮನೆಗಳನ್ನು ಅನ್ವೇಷಿಸಿ.';
+            } else {
+                title.innerText = 'Find Your Dream Home With Us';
+                description.innerText = 'Explore a wide range of rental properties suited for every budget.';
+            }
+        }
+
+        // Call the function to display properties when the page loads
+        window.onload = displayProperties;
+    </script>
+
+</body>
+</html>

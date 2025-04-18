@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Registration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+    
+        body, html {
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+        }
+    
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("https://img.freepik.com/free-photo/modern-architecture-reflects-illuminated-swimming-pool-dusk-generated-by-artificial-intelligence_188544-150826.jpg") 
+                        center center / cover no-repeat;
+            z-index: -1;
+        }
+    
+        .auth-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+    
+        .auth-container h1 {
+            color: #ffffff;
+            font-size: 32px;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+    
+        .auth-container input {
+            width: 100%;
+            padding: 15px;
+            margin: 15px 0;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            font-size: 16px;
+            outline: none;
+            transition: background 0.3s ease;
+        }
+    
+        .auth-container input:focus {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    
+        .auth-container button {
+            background: #3498db;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 18px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+    
+        .auth-container button:hover {
+            background: #2980b9;
+        }
+    
+        .auth-container a {
+            color: #ffffff;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 15px;
+        }
+    
+        .auth-container a:hover {
+            text-decoration: underline;
+        }
+    
+        /* Additional styling for responsiveness */
+        @media (max-width: 768px) {
+            .auth-container {
+                width: 90%;
+                padding: 30px;
+            }
+    
+            .auth-container h1 {
+                font-size: 24px;
+            }
+    
+            .auth-container input, .auth-container button {
+                font-size: 14px;
+            }
+        }
+    </style>
+    
+</head>
+<body>
+
+    <div class="background-container"></div>
+
+    <div class="auth-container">
+        <h1>Admin Registration</h1>
+        <form id="adminRegistrationForm">
+            <input type="text" placeholder="Full Name" required name="name">
+            <input type="email" placeholder="Email" required name="email">
+            <input type="text" placeholder="Username" required name="username">
+            <input type="password" placeholder="Password" required name="password">
+            <input type="password" placeholder="Confirm Password" required name="confirm_password">
+            <input type="text" placeholder="Phone Number" required name="phone">
+            <input type="text" placeholder="UPI ID (for receiving payments)" required name="upi_id">
+            <input type="text" placeholder="Bank Account Number (Optional)" name="bank_account">
+            <input type="text" placeholder="IFSC Code (Optional)" name="ifsc_code">
+            <button type="submit">Register</button>
+            <div>
+                <a href="login.html">Already have an account? Login</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('adminRegistrationForm').onsubmit = function(e) {
+            e.preventDefault();
+            const form = new FormData(this);
+
+            // Check if password and confirm password match
+            const password = form.get('password');
+            const confirmPassword = form.get('confirm_password');
+            
+            if (password !== confirmPassword) {
+                alert("Passwords do not match.");
+                return;
+            }
+            
+            fetch('registerAdmin.php', { method: 'POST', body: form })
+                .then(response => response.text())
+                .then(result => {
+                    alert(result); // Handle the response here
+                    if (result.includes("successfully registered")) {
+                        window.location.href = "login.html"; // Redirect to login page after successful registration
+                    }
+                })
+                .catch(error => alert('Error: ' + error));
+        };
+    </script>
+
+</body>
+</html>

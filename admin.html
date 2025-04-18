@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Add New Home</title>
+    <style>
+        .admin-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .admin-container h2 {
+            text-align: center;
+            color: #ff7200;
+        }
+        .input-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .input-group img {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+        .admin-container input, .admin-container textarea {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .admin-container textarea {
+            resize: none;
+        }
+        .admin-container button {
+            background-color: #ff7200;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        .message {
+            color: red;
+            text-align: center;
+        }
+        .success-message {
+            color: green;
+            text-align: center;
+        }
+        #imagePreview {
+            max-width: 100%;
+            margin-top: 10px;
+            display: none;
+        }
+        .loader {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #ff7200;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <h2>Add New Home</h2>
+        <form id="addHomeForm" method="POST" enctype="multipart/form-data">
+            <div class="input-group">
+                <img src="icons/home.png" alt="Home Name Icon">
+                <input type="text" id="homeName" placeholder="Home Name" required>
+            </div>
+            <div class="input-group">
+                <img src="icons/bed.gif" alt="Beds Icon">
+                <input type="text" id="homeBeds" placeholder="Number of Beds" required>
+            </div>
+            <div class="input-group">
+                <img src="icons/bath.gif" alt="Baths Icon">
+                <input type="text" id="homeBaths" placeholder="Number of Baths" required>
+            </div>
+            <div class="input-group">
+                <img src="icons/money.gif" alt="Price Icon">
+                <input type="text" id="homePrice" placeholder="Price (in dollars)" required>
+            </div>
+            <div class="input-group">
+                <img src="icons/dis.png" alt="Description Icon">
+                <textarea id="homeDescription" placeholder="Home Description" required></textarea>
+            </div>
+            <div class="input-group">
+                <img src="icons/choose.gif" alt="Upload Icon">
+                <input type="file" id="homeImg" accept="image/*" required>
+            </div>
+            
+            <img id="imagePreview" alt="Image Preview" />
+
+            <button type="submit">Add Home</button>
+        </form>
+        <div class="message" id="message"></div>
+        <div class="success-message" id="successMessage"></div>
+        <div class="loader" id="loader"></div>
+    </div>
+
+    <script>
+        document.getElementById('addHomeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Show loader
+            const loader = document.getElementById('loader');
+            loader.style.display = 'block';
+
+            // Prepare form data
+            const formData = new FormData();
+            formData.append('name', document.getElementById('homeName').value);
+            formData.append('beds', document.getElementById('homeBeds').value);
+            formData.append('baths', document.getElementById('homeBaths').value);
+            formData.append('price', document.getElementById('homePrice').value);
+            formData.append('description', document.getElementById('homeDescription').value);
+            formData.append('image', document.getElementById('homeImg').files[0]);
+
+            // Send form data to PHP script
+            fetch('add_home.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                loader.style.display = 'none';
+
+                const successMessageDiv = document.getElementById('successMessage');
+                const messageDiv = document.getElementById('message');
+
+                if (data.includes("success")) {
+                    successMessageDiv.textContent = "Home uploaded successfully!";
+                    messageDiv.textContent = "";
+                    setTimeout(() => window.location.href = 'adminhome.html', 1500);
+                } else {
+                    messageDiv.textContent = data;
+                    successMessageDiv.textContent = "";
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                document.getElementById('message').textContent = "An error occurred. Please try again.";
+                loader.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
